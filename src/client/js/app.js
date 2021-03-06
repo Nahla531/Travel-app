@@ -13,18 +13,23 @@ generate.addEventListener('click', handlefunc);
 async function handlefunc(event) {
     event.preventDefault();
     const City = document.getElementById('city').value;
+    // const rows = '&maxRows=1';
     // const feelings = document.getElementById('feelings').value;
     getDataApi(apiURL, City, name)
         .then(function(data) { // data is an object
-            console.log(data);
-            console.log(data[0]);
-            console.log(data[0].lng);
-            // console.log(data.list[0].main.temp);
-            // postData('/add', { date: newDate, temperature: data.list[0].main.temp, response: feelings });
+            // console.log(data.geonames);
+            console.log(data.geonames[0]);
+            console.log(data.geonames[0].name);
+            console.log(data.geonames[0].countryName);
+            console.log(data.geonames[0].lng);
+            console.log(data.geonames[0].lat);
+
+
+            postData('/addTrip', { country: data.geonames[0].countryName, lng: data.geonames[0].lng, lat: data.geonames[0].lat });
 
         })
         .then(function(data) {
-            // updateUI();
+            updateUI();
         });
 
 
@@ -33,11 +38,11 @@ async function handlefunc(event) {
 
 const getDataApi = async(baseURL, city, uname) => {
 
-        const res = await fetch(baseURL + city + uname + '&maxRows=1')
+        const res = await fetch(baseURL + city + uname)
         try {
 
             const data = await res.json();
-            //console.log(data);
+            console.log(data);
             return data;
         } catch (error) {
             console.log("error", error);
@@ -58,6 +63,7 @@ const postData = async(url = '', data = {}) => {
 
     try {
         const newData = await response.json();
+        console.log(newData)
         return newData;
     } catch (error) {
         console.log("error", error);
@@ -71,9 +77,9 @@ const updateUI = async(url = '') => {
     const request = await fetch('/all');
     try {
         const allData = await request.json();
-        document.getElementById('date').innerHTML = `time is:  ${allData.date}`;
-        document.getElementById('temp').innerHTML = `temperature is: ${allData.temperature}`;
-        document.getElementById('content').innerHTML = `Your feeling is: ${allData.response}`;
+        document.getElementById('country').innerHTML = `country:  ${allData.country}`;
+        document.getElementById('long').innerHTML = `long is: ${allData.lng}`;
+        document.getElementById('lat').innerHTML = `latis: ${allData.lat}`;
         console.log(allData);
     } catch (error) {
         console.log("error", error);

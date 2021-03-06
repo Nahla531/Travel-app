@@ -1,5 +1,6 @@
 // Setup empty JS object to act as endpoint for all routes
 let endpoint = {};
+let dataTrip = [];
 // Express to run server and routes
 const express = require('express');
 
@@ -29,32 +30,33 @@ function listening() {
     console.log(`Example app listening on port ${port}!`)
 };
 // Initialize all route with a callback function
-// app.get('/all', sendData);
+app.get('/all', sendData);
 // Callback function to complete GET '/all'
 
 
-// function sendData(request, response) {
-//     response.send(JSON.stringify(endpoint));
-//     // console.log(endpoint);
-// }
+function sendData(request, response) {
+    response.send(JSON.stringify(endpoint));
+    // console.log(endpoint);
+}
 
-// Post Route
-
-// app.post('/add', addData);
-
-// function addData(request, response) {
-//     //console.log(request.body);
-//     endpoint = {
-//         date: request.body.date,
-//         temperature: request.body.temperature,
-//         response: request.body.response
-//     }
-
-//     response.send(endpoint);
-//     console.log(endpoint);
-// }
 
 // Routes
 app.get('/', (req, res) => {
     res.sendFile(path.resolve('/dist/index.html'));
 });
+
+
+app.post('/addTrip', addDataTrip);
+
+function addDataTrip(request, response) {
+    console.log(request.body);
+    endpoint = {
+        country: request.body.country,
+        lng: request.body.lng,
+        lat: request.body.lat
+    }
+    dataTrip.push(endpoint)
+    response.send(endpoint);
+    console.log(endpoint);
+    console.log(dataTrip);
+}
