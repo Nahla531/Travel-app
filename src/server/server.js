@@ -33,6 +33,7 @@ function listening() {
 app.get('/all', sendData);
 // Callback function to complete GET '/all'
 app.get('/weatherdata', sendweather)
+let pix = {};
 
 function sendData(request, response) {
     response.send(JSON.stringify(endpoint));
@@ -41,6 +42,13 @@ function sendData(request, response) {
 
 function sendweather(request, response) {
     response.send(JSON.stringify(weather));
+    // console.log(endpoint);
+}
+
+app.get('/pixdata', sendpix)
+
+function sendpix(request, response) {
+    response.send(JSON.stringify(pix));
     // console.log(endpoint);
 }
 
@@ -99,3 +107,13 @@ const addDataWeather = (req, res) => {
 }
 
 app.post('/addweather', addDataWeather);
+
+
+const addPic = (req, res) => {
+    pix = {
+        pic: req.body.pic
+    }
+    res.send(pix);
+    alldata.push(pix)
+}
+app.post('/addpic', addPic);

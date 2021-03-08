@@ -11,6 +11,9 @@ const apiKey = '&key=81f6046d24444815bc19d493d096da66';
 let apiURLWeatherbitForcast = 'https://api.weatherbit.io/v2.0/forecast/daily?city=';
 let apiURLWeatherbitCurrent = 'https://api.weatherbit.io/v2.0/current?city=';
 
+// pixbay api data
+const apiKeyPix = '&key=20561957-25f861b78cc313b8e63abab5d';
+let apiForPix = 'https://pixabay.com/api/?image_type=photo&pretty=true&q='
 const generate = document.getElementById('generate');
 // Event listener to add function to existing HTML DOM element
 generate.addEventListener('click', handlefunc);
@@ -38,7 +41,13 @@ async function handlefunc(event) {
     await getDataApi(weatherurl, city, apiKey)
         .then(function(data) {
             postData('/addweather', { description: data.data[0].weather.description, temp: data.data[0].temp })
-            console.log('this is data', data.data[0].temp);
+                // console.log('this is data', data.data[0].temp);
+
+        })
+    await getDataApi(apiForPix, city, apiKeyPix)
+        .then(function(data) {
+            // console.log(data.hits[0].webformatURL);
+            postData('/addpic', { pic: data.hits[0].webformatURL })
 
         })
         .then(function(data) {
@@ -106,7 +115,15 @@ const updateUI = async(url = '') => {
         const allData2 = await request2.json();
         document.getElementById('weather').innerHTML = `tempreture tthemn :  ${allData2.temp}`;
 
-        console.log(allData2);
+        // console.log(allData2);
+    } catch (error) {
+        console.log("error", error);
+    }
+    const request3 = await fetch('/pixdata');
+    try {
+        const pic = await request3.json();
+        document.getElementById('img').setAttribute('src', `${pic.pic}`)
+
     } catch (error) {
         console.log("error", error);
     }
