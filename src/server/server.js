@@ -29,14 +29,14 @@ function listening() {
     console.log(`Example app listening on port ${port}!`)
 };
 // Initialize all route with a callback function
-// app.get('/all', sendData);
+app.get('/all', sendData);
 // Callback function to complete GET '/all'
 
 
-// function sendData(request, response) {
-//     response.send(JSON.stringify(endpoint));
-//     // console.log(endpoint);
-// }
+function sendData(request, response) {
+    response.send(JSON.stringify(endpoint));
+    // console.log(endpoint);
+}
 
 // Post Route
 
@@ -58,3 +58,22 @@ function listening() {
 app.get('/', (req, res) => {
     res.sendFile(path.resolve('/dist/index.html'));
 });
+
+
+// getting location detalis and save them to endpoint object
+app.post('/addTrip', addDataTrip);
+
+function addDataTrip(request, response) {
+    // console.log(request.body);
+    endpoint = {
+        country: request.body.country,
+        lng: request.body.lng,
+        lat: request.body.lat,
+        name: request.body.name,
+        countdown: request.body.countdown,
+        tripTime: request.body.tripTime
+    }
+    response.send(endpoint);
+    console.log(endpoint);
+    // console.log(dataTrip);
+}
