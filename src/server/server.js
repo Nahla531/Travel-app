@@ -1,5 +1,6 @@
 // Setup empty JS object to act as endpoint for all routes
 let endpoint = {};
+let alldata = [];
 // Express to run server and routes
 const express = require('express');
 
@@ -31,10 +32,15 @@ function listening() {
 // Initialize all route with a callback function
 app.get('/all', sendData);
 // Callback function to complete GET '/all'
-
+app.get('/weatherdata', sendweather)
 
 function sendData(request, response) {
     response.send(JSON.stringify(endpoint));
+    // console.log(endpoint);
+}
+
+function sendweather(request, response) {
+    response.send(JSON.stringify(weather));
     // console.log(endpoint);
 }
 
@@ -74,6 +80,22 @@ function addDataTrip(request, response) {
         tripTime: request.body.tripTime
     }
     response.send(endpoint);
-    console.log(endpoint);
-    // console.log(dataTrip);
+    alldata.push(endpoint)
+        // console.log(endpoint);
+        // console.log(dataTrip);
 }
+
+
+//weather 
+let weather = {};
+const addDataWeather = (req, res) => {
+    weather = {
+        description: req.body.description,
+        temp: req.body.temp
+    }
+    alldata.push(weather);
+    res.send(weather)
+    console.log(alldata);
+}
+
+app.post('/addweather', addDataWeather);

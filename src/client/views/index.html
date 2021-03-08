@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Weather Journal</title>
+    <title>Travel App</title>
     <link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
 </head>
 
@@ -18,9 +18,9 @@
         </div>
         <div class="holder feel">
             <label for="start">Departing : </label>
-            <input type="date" id="start">
+            <input type="date" id="start" name="trip-start">
             <label for="end">leaving: </label>
-            <input type="date" id="end">
+            <input type="date" id="end" name="trip-end">
             <button id="generate" type="submit"> Generate </button>
         </div>
         <div class="holder entry">
@@ -28,6 +28,7 @@
             <div id="entryHolder">
                 <div id="country"></div>
                 <div id="cityname"></div>
+                <div id="weather"></div>
             </div>
         </div>
     </div>

@@ -1,12 +1,17 @@
 // geonames API
 const name = '&username=nahla1';
 let apiURL = 'http://api.geonames.org/searchJSON?q=';
-const generate = document.getElementById('generate');
+
+
 document.getElementById('start').value = new Date().toISOString().substring(0, 10);
 document.getElementById('end').value = new Date().toISOString().substring(0, 10);
-// Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
+
+// weather api data
+const apiKey = '&key=81f6046d24444815bc19d493d096da66';
+let apiURLWeatherbitForcast = 'https://api.weatherbit.io/v2.0/forecast/daily?city=';
+let apiURLWeatherbitCurrent = 'https://api.weatherbit.io/v2.0/current?city=';
+
+const generate = document.getElementById('generate');
 // Event listener to add function to existing HTML DOM element
 generate.addEventListener('click', handlefunc);
 
@@ -18,18 +23,32 @@ async function handlefunc(event) {
     let endDate = document.getElementById('end').value;
     let tripTime = (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 3600 * 24);
     console.log(tripTime)
-    let countdown = getCountDown(startDate)
-        // const feelings = document.getElementById('feelings').value;
-    getDataApi(apiURL, city, name)
+    let countdown = getCountDown(startDate);
+    let weatherurl = '';
+    // const feelings = document.getElementById('feelings').value;
+    await getDataApi(apiURL, city, name)
         .then(function(data) { // data is an object
             console.log(data.geonames[0]);
             // console.log(data.list[0].main.temp);
             console.log(data.geonames[0].name);
             postData('/addTrip', { country: data.geonames[0].countryName, lng: data.geonames[0].lng, lat: data.geonames[0].lat, name: data.geonames[0].name, countdown: countdown, tripTime: tripTime });
+        })
+    weatherurl = await Weather();
+
+    await getDataApi(weatherurl, city, apiKey)
+        .then(function(data) {
+            postData('/addweather', { description: data.data[0].weather.description, temp: data.data[0].temp })
+            console.log('this is data', data.data[0].temp);
 
         })
         .then(function(data) {
+            // console.log('alive');
             updateUI();
+            // weatherurl = Weather();
+            // getDataApi(weatherurl, city, apiKey).then(function(data) {
+            //     console.log(data);
+            // })
+
         });
 
 
@@ -82,6 +101,17 @@ const updateUI = async(url = '') => {
     } catch (error) {
         console.log("error", error);
     }
+    const request2 = await fetch('/weatherdata');
+    try {
+        const allData2 = await request2.json();
+        document.getElementById('weather').innerHTML = `tempreture tthemn :  ${allData2.temp}`;
+
+        console.log(allData2);
+    } catch (error) {
+        console.log("error", error);
+    }
+
+
 }
 
 // get count down 
@@ -100,6 +130,22 @@ const getCountDown = (date) => {
 }
 
 
+//weatherbit helper function 
+
+const Weather = async(url = '') => {
+    const request = await fetch('/all');
+    try {
+        const allData = await request.json();
+        if (allData.countdown > 7) {
+            return url = `${apiURLWeatherbitForcast}`
+        } else {
+            return url = `${apiURLWeatherbitCurrent}`
+        }
+
+    } catch (error) {
+        console.log("error", error);
+    }
+}
 
 export {
     handlefunc,
