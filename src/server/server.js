@@ -1,5 +1,6 @@
 // Setup empty JS object to act as endpoint for all routes
 let endpoint = {};
+//saving trips
 let dataTrip = [];
 // Express to run server and routes
 const express = require('express');
@@ -30,7 +31,7 @@ function listening() {
     console.log(`Example app listening on port ${port}!`)
 };
 // Initialize all route with a callback function
-app.get('/all', sendData);
+app.get('/allData', sendData);
 // Callback function to complete GET '/all'
 
 
@@ -41,11 +42,13 @@ function sendData(request, response) {
 
 
 // Routes
+
+//get home page 
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve('/dist/index.html'));
+    res.sendFile(path.resolve('index.html'));
 });
 
-
+// getting location detalis and save them to endpoint object
 app.post('/addTrip', addDataTrip);
 
 function addDataTrip(request, response) {
@@ -53,10 +56,28 @@ function addDataTrip(request, response) {
     endpoint = {
         country: request.body.country,
         lng: request.body.lng,
-        lat: request.body.lat
+        lat: request.body.lat,
+        countdown:request.body.countdown
     }
     dataTrip.push(endpoint)
     response.send(endpoint);
     console.log(endpoint);
     console.log(dataTrip);
+}
+
+
+// getting weather data and save the to endpoint object 
+
+app.post('/getWeather', weatherData);
+
+const weatherData = (req,res)=>{
+    
+}
+
+//gettting picture of the location trip
+
+app.post('/getPicture',getPicture);
+
+const getPicture = (req,res) =>{
+    
 }
