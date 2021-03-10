@@ -9,35 +9,46 @@
 
 <body>
     <div id="app">
-        <div class="holder headline">
+        <h1 class="holder headline">
             Travel App
-        </div>
-        <div class="holder city">
-            <label for="city">Enter City Name here</label>
-            <input type="text" id="city" placeholder="enter city name here">
-        </div>
-        <div class="holder feel">
-            <label for="start">Departing : </label>
-            <input type="date" id="start" name="trip-start">
-            <label for="end">leaving: </label>
-            <input type="date" id="end" name="trip-end">
-            <button id="generate" type="submit"> Generate </button>
-        </div>
-        <div class="holder entry">
-            <div class="title">Most Recent Entry</div>
-            <div id="entryHolder">
-                <div id="country"></div>
-                <div id="cityname"></div>
-                <div id="weather"></div>
-                <div id="picture">
-                    <img id="img">
+        </h1>
+        <main>
+            <section class="info-holder">
+                <div class="city-holder">
+                    <label for="city">Enter City Name here</label>
+                    <input type="text" id="city" placeholder="enter city name here">
                 </div>
-            </div>
-        </div>
+                <div class="date-holder">
+                    <label for="start">Departing : </label>
+                    <input type="date" id="start" name="trip-start">
+                    <label for="end" class="end">leaving: </label>
+                    <input type="date" id="end" name="trip-end">
+                    <div class="button">
+                        <button id="generate" type="submit"> Generate </button>
+                    </div>
+                </div>
+            </section>
+            <section class="holder2 ">
+                <h2 class="title" id="title"></h2>
+                <div class="container">
+                    <div id="picture">
+                        <img id="img">
+                    </div>
+                    <ul id="entryHolder">
+                        <li id="country"></li>
+                        <li id="cityname"></li>
+                        <li id="away"></li>
+                        <li id="weather"></li>
+                    </ul>
+
+                </div>
+            </section>
+    </div>
+    </main>
     </div>
 
     <footer>
-        <p>&copy; Nahla Al-eikish - Udacity Travel App</p>
+        <p class="copy">&copy; Nahla Al-eikish - Udacity Travel App</p>
     </footer>
     <!-- Add Service Worker -->
     <script>

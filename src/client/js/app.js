@@ -103,9 +103,12 @@ const postData = async(url = '', data = {}) => {
 const updateUI = async(url = '') => {
     const request = await fetch('/all');
     try {
+        let startDate = document.getElementById('start').value;
         const allData = await request.json();
-        document.getElementById('country').innerHTML = `country name:  ${allData.country}`;
-        document.getElementById('cityname').innerHTML = `city name: ${allData.name} and trip time is ${Math.floor(allData.tripTime)}`;
+        document.getElementById('title').innerHTML = 'Trip Details:'
+        document.getElementById('country').innerHTML = `My trip to : ${allData.name},${allData.country}`;
+        document.getElementById('cityname').innerHTML = `Departing on ${startDate} and trip time is ${Math.floor(allData.tripTime)}`;
+        document.getElementById('away').innerHTML = `${allData.name} is ${allData.countdown} Days away`
         console.log(allData);
     } catch (error) {
         console.log("error", error);
@@ -113,7 +116,7 @@ const updateUI = async(url = '') => {
     const request2 = await fetch('/weatherdata');
     try {
         const allData2 = await request2.json();
-        document.getElementById('weather').innerHTML = `tempreture tthemn :  ${allData2.temp}`;
+        document.getElementById('weather').innerHTML = `Typical weather for then is : ${allData2.temp}`;
 
         // console.log(allData2);
     } catch (error) {
