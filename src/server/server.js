@@ -37,36 +37,17 @@ let pix = {};
 
 function sendData(request, response) {
     response.send(JSON.stringify(endpoint));
-    // console.log(endpoint);
 }
 
 function sendweather(request, response) {
     response.send(JSON.stringify(weather));
-    // console.log(endpoint);
 }
 
 app.get('/pixdata', sendpix)
 
 function sendpix(request, response) {
     response.send(JSON.stringify(pix));
-    // console.log(endpoint);
 }
-
-// Post Route
-
-// app.post('/add', addData);
-
-// function addData(request, response) {
-//     //console.log(request.body);
-//     endpoint = {
-//         date: request.body.date,
-//         temperature: request.body.temperature,
-//         response: request.body.response
-//     }
-
-//     response.send(endpoint);
-//     console.log(endpoint);
-// }
 
 // Routes
 app.get('/', (req, res) => {
@@ -78,7 +59,6 @@ app.get('/', (req, res) => {
 app.post('/addTrip', addDataTrip);
 
 function addDataTrip(request, response) {
-    // console.log(request.body);
     endpoint = {
         country: request.body.country,
         lng: request.body.lng,
@@ -89,8 +69,6 @@ function addDataTrip(request, response) {
     }
     response.send(endpoint);
     alldata.push(endpoint)
-        // console.log(endpoint);
-        // console.log(dataTrip);
 }
 
 
