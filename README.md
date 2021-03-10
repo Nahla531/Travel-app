@@ -7,9 +7,11 @@ You can search for your next trip and get trip info like picture, tempreture, tr
 
  - webpack
  - html
- - css
+ - sass
  - js
  - nodejs
+ - service workers
+ - jest
  
 
  ### API used: 
