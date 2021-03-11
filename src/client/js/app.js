@@ -169,6 +169,5 @@ const Weather = async(url = '') => {
 
 export {
     handlefunc,
-    getCountDown
-
+    Weather
 }
