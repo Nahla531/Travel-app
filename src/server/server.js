@@ -10,6 +10,12 @@ const app = express();
 //port
 const port = 8000;
 
+
+const server = app.listen(port, listening);
+
+function listening() {
+    console.log(`Example app listening on port ${port}!`)
+};
 /* Dependencies */
 const bodyParser = require('body-parser');
 
@@ -25,12 +31,7 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static('dist'));
 
-// Spin up the server
-const server = app.listen(port, listening);
-// Callback to debug
-function listening() {
-    console.log(`Example app listening on port ${port}!`)
-};
+
 // Initialize all route with a callback function
 app.get('/all', sendData);
 // Callback function to complete GET '/all'
@@ -53,7 +54,7 @@ function sendpix(request, response) {
 
 // Routes
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve('/dist/index.html'));
+    res.sendFile('/dist/index.html');
 });
 
 
@@ -97,3 +98,6 @@ const addPic = (req, res) => {
     alldata.push(pix)
 }
 app.post('/addpic', addPic);
+
+
+module.exports = app;
