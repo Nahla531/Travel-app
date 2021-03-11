@@ -45,10 +45,20 @@ async function handlefunc(event) {
 
     await getDataApi(weatherurl, city, apiKey)
         .then(function(data) {
-            postData('/addweather', {
-                description: data.data[0].weather.description,
-                temp: data.data[0].temp
-            })
+            console.log(data.data);
+            if (countdown < 7) {
+                postData('/addweather', {
+                    description: data.data[0].weather.description,
+                    temp: data.data[0].temp
+                        // data: data
+                })
+            } else {
+                postData('/addweatherforcast', {
+                    descriptionforc: data.data[0].weather.description,
+                    high_temp: data.data[0].max_temp,
+                    low_temp: data.data[0].low_temp
+                })
+            }
 
         })
     await getDataApi(apiForPix, city, apiKeyPix)
@@ -109,20 +119,32 @@ const updateUI = async(url = '') => {
         document.getElementById('cityname').innerHTML = `Departing on ${startDate} and trip time is ${Math.floor(allData.tripTime)}`;
         document.getElementById('away').innerHTML = `${allData.name} is ${allData.countdown} Days away`
         console.log(allData);
+        if (allData.countdown < 7) {
+            const request2 = await fetch('/weatherdata');
+            try {
+                const allData2 = await request2.json();
+                console.log(allData2);
+                document.getElementById('weather').innerHTML = `Typical weather for then is : ${allData2.temp}`;
+            } catch (error) {
+                console.log("error", error);
+            }
+        } else {
+            const request3 = await fetch('/weatherdataforecast');
+            try {
+                const allData3 = await request3.json();
+                console.log(allData3);
+                document.getElementById('weather').innerHTML = `Typical weather for then is , High ${allData3.high_temp} and Low :${allData3.low_temp}`;
+            } catch (error) {
+                console.log("error", error);
+            }
+        }
     } catch (error) {
         console.log("error", error);
     }
-    const request2 = await fetch('/weatherdata');
-    try {
-        const allData2 = await request2.json();
-        document.getElementById('weather').innerHTML = `Typical weather for then is : ${allData2.temp}`;
-    } catch (error) {
-        console.log("error", error);
-    }
-    const request3 = await fetch('/pixdata');
+    const request4 = await fetch('/pixdata');
 
     try {
-        const pic = await request3.json();
+        const pic = await request4.json();
         picture.classList.add('img');
         document.getElementById('picture').appendChild(picture)
         picture.setAttribute('src', `${pic.pic}`)
