@@ -1,7 +1,10 @@
+/* mobile */
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-size: 1rem;
 }
 
 body {
@@ -10,60 +13,78 @@ body {
     background-color: darksalmon;
 }
 
+ul {
+    list-style: none;
+}
+
 .headline {
     text-align: center;
+    margin-top: 1rem;
+    font-size: 2rem;
+    font-weight: 700;
 }
 
 .info-holder {
-    width: 50vw;
-    height: 30%;
     text-align: center;
     display: flex;
     flex-direction: column;
     background-color: thistle;
     margin: auto;
-    margin-top: 3rem;
-    padding: 3rem;
+    margin-top: 1rem;
+    justify-content: space-around;
+}
+
+.city-holder {
+    padding-top: 2rem;
+}
+
+footer {
+    width: 100%;
+    height: 3rem;
+    background-color: gray;
+    opacity: .7;
+    color: white;
+    text-align: center;
+}
+
+.copy {
+    padding-top: .8rem;
 }
 
 .date-holder {
-    margin-top: 3rem;
-    margin-left: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    padding: 1rem;
+}
+
+.date-holder input {
+    width: 50%;
+    margin-left: 4rem;
 }
 
 button {
     background-color: gray;
     border: none;
-    padding: 1rem;
+    padding: .5rem;
     color: white;
     font-weight: 600;
     &:hover {
-        color: teal;
+        color: thistle;
         cursor: pointer;
     }
 }
 
 .button {
-    margin-top: 2rem;
-}
-
-.copy {
-    padding-top: 2.3rem;
-}
-
-.end {
-    margin-left: 1rem;
-}
-
-ul {
-    list-style: none;
+    padding-top: 1rem;
 }
 
 .container {
     display: flex;
+    flex-direction: column;
     padding: 2rem;
-    width: 60%;
-    margin: auto;
+    width: 100%;
 }
 
 .holder2,
@@ -73,21 +94,49 @@ ul {
 }
 
 .img {
-    width: 200px;
-    height: 200px;
-    margin-right: 4rem;
+    width: 63%;
+    height: 100%;
+    margin-right: 1rem;
 }
 
 #entryHolder {
-    line-height: 1.5em;
     padding-top: 2rem;
 }
 
-footer {
-    width: 100%;
-    height: 8rem;
-    background-color: gray;
-    opacity: .7;
-    color: white;
-    text-align: center;
+
+/* media quires */
+
+@media screen and (min-width:768px) {
+    body {
+        font-size: 1rem;
+    }
+    .date-holder {
+        display: block;
+        margin-top: 3rem;
+        margin-left: 3rem;
+    }
+    .date-holder input {
+        width: 20%;
+        margin-left: 0;
+    }
+    .info-holder {
+        width: 70%;
+    }
+    footer {
+        font-weight: 800;
+        opacity: .9;
+    }
+    .container {
+        flex-direction: row;
+        width: 60%;
+        margin: auto;
+    }
+    .img {
+        width: 200px;
+        height: 200px;
+        margin-right: 4rem;
+    }
+    #entryHolder {
+        line-height: 1.5em;
+    }
 }

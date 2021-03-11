@@ -32,18 +32,30 @@ async function handlefunc(event) {
     await getDataApi(apiURL, city, name)
         .then(function(data) { // data is an object
             console.log(data);
-            postData('/addTrip', { country: data.geonames[0].countryName, lng: data.geonames[0].lng, lat: data.geonames[0].lat, name: data.geonames[0].name, countdown: countdown, tripTime: tripTime });
+            postData('/addTrip', {
+                country: data.geonames[0].countryName,
+                lng: data.geonames[0].lng,
+                lat: data.geonames[0].lat,
+                name: data.geonames[0].name,
+                countdown: countdown,
+                tripTime: tripTime
+            });
         })
     weatherurl = await Weather();
 
     await getDataApi(weatherurl, city, apiKey)
         .then(function(data) {
-            postData('/addweather', { description: data.data[0].weather.description, temp: data.data[0].temp })
+            postData('/addweather', {
+                description: data.data[0].weather.description,
+                temp: data.data[0].temp
+            })
 
         })
     await getDataApi(apiForPix, city, apiKeyPix)
         .then(function(data) {
-            postData('/addpic', { pic: data.hits[0].webformatURL })
+            postData('/addpic', {
+                pic: data.hits[0].webformatURL
+            })
         })
         .then(function(data) {
             updateUI();
