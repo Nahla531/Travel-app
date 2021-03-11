@@ -1,3 +1,5 @@
+import { postData } from './postdata'
+
 // geonames API
 const name = '&username=nahla1';
 let apiURL = 'http://api.geonames.org/searchJSON?q=';
@@ -75,37 +77,18 @@ async function handlefunc(event) {
 
 const getDataApi = async(baseURL, city, uname) => {
 
-        const res = await fetch(baseURL + city + uname)
-        try {
-
-            const data = await res.json();
-            console.log(data);
-            return data;
-        } catch (error) {
-            console.log("error", error);
-            // appropriately handle the error
-        }
-    }
-    /* Function to POST data */
-const postData = async(url = '', data = {}) => {
-
-    const response = await fetch(url, {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    });
-
+    const res = await fetch(baseURL + city + uname)
     try {
-        const newData = await response.json();
-        return newData;
+
+        const data = await res.json();
+        console.log(data);
+        return data;
     } catch (error) {
         console.log("error", error);
         // appropriately handle the error
     }
 }
+
 
 
 /* Function to GET Project Data */
@@ -159,20 +142,18 @@ picture.setAttribute('src', `#`)
 // get count down 
 // refernce https://www.geeksforgeeks.org/how-to-calculate-the-number-of-days-between-two-dates-in-javascript/
 const getCountDown = (date) => {
-    // To set two dates to two variables 
-    var date1 = new Date();
-    var date2 = new Date(date);
+        // To set two dates to two variables 
+        var date1 = new Date();
+        var date2 = new Date(date);
 
-    // To calculate the time difference of two dates 
-    var Difference_In_Time = date2.getTime() - date1.getTime();
+        // To calculate the time difference of two dates 
+        var Difference_In_Time = date2.getTime() - date1.getTime();
 
-    // To calculate the no. of days between two dates 
-    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-    return (Math.ceil(Difference_In_Days));
-}
-
-
-//weatherbit helper function 
+        // To calculate the no. of days between two dates 
+        var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+        return (Math.ceil(Difference_In_Days));
+    }
+    //weatherbit helper function 
 
 const Weather = async(url = '') => {
     const request = await fetch('/all');
@@ -188,6 +169,7 @@ const Weather = async(url = '') => {
         console.log("error", error);
     }
 }
+
 
 export {
     handlefunc,
