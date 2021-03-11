@@ -1,6 +1,7 @@
 // geonames API
 const name = '&username=nahla1';
 let apiURL = 'http://api.geonames.org/searchJSON?q=';
+let picture = document.createElement('img');
 
 
 document.getElementById('start').value = new Date().toISOString().substring(0, 10);
@@ -28,39 +29,37 @@ async function handlefunc(event) {
     console.log(tripTime)
     let countdown = getCountDown(startDate);
     let weatherurl = '';
-    // const feelings = document.getElementById('feelings').value;
     await getDataApi(apiURL, city, name)
         .then(function(data) { // data is an object
-            console.log(data.geonames[0]);
-            // console.log(data.list[0].main.temp);
-            console.log(data.geonames[0].name);
-            postData('/addTrip', { country: data.geonames[0].countryName, lng: data.geonames[0].lng, lat: data.geonames[0].lat, name: data.geonames[0].name, countdown: countdown, tripTime: tripTime });
+            console.log(data);
+            postData('/addTrip', {
+                country: data.geonames[0].countryName,
+                lng: data.geonames[0].lng,
+                lat: data.geonames[0].lat,
+                name: data.geonames[0].name,
+                countdown: countdown,
+                tripTime: tripTime
+            });
         })
     weatherurl = await Weather();
 
     await getDataApi(weatherurl, city, apiKey)
         .then(function(data) {
-            postData('/addweather', { description: data.data[0].weather.description, temp: data.data[0].temp })
-                // console.log('this is data', data.data[0].temp);
+            postData('/addweather', {
+                description: data.data[0].weather.description,
+                temp: data.data[0].temp
+            })
 
         })
     await getDataApi(apiForPix, city, apiKeyPix)
         .then(function(data) {
-            // console.log(data.hits[0].webformatURL);
-            postData('/addpic', { pic: data.hits[0].webformatURL })
-
+            postData('/addpic', {
+                pic: data.hits[0].webformatURL
+            })
         })
         .then(function(data) {
-            // console.log('alive');
             updateUI();
-            // weatherurl = Weather();
-            // getDataApi(weatherurl, city, apiKey).then(function(data) {
-            //     console.log(data);
-            // })
-
         });
-
-
 };
 /* Function to GET Web API Data*/
 
@@ -117,22 +116,23 @@ const updateUI = async(url = '') => {
     try {
         const allData2 = await request2.json();
         document.getElementById('weather').innerHTML = `Typical weather for then is : ${allData2.temp}`;
-
-        // console.log(allData2);
     } catch (error) {
         console.log("error", error);
     }
     const request3 = await fetch('/pixdata');
+
     try {
         const pic = await request3.json();
-        document.getElementById('img').setAttribute('src', `${pic.pic}`)
+        picture.classList.add('img');
+        document.getElementById('picture').appendChild(picture)
+        picture.setAttribute('src', `${pic.pic}`)
 
     } catch (error) {
         console.log("error", error);
     }
 
-
 }
+picture.setAttribute('src', `#`)
 
 // get count down 
 // refernce https://www.geeksforgeeks.org/how-to-calculate-the-number-of-days-between-two-dates-in-javascript/
@@ -146,7 +146,7 @@ const getCountDown = (date) => {
 
     // To calculate the no. of days between two dates 
     var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-    return (Math.floor(Difference_In_Days));
+    return (Math.ceil(Difference_In_Days));
 }
 
 

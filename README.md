@@ -19,10 +19,16 @@ You can search for your next trip and get trip info like picture, tempreture, tr
  1- Geonames API.
 
  2- Weatherbit API.
- 
+
  3-Pixbay API.
 
+### How to Run
 
- #### Resources
+- run the server using 'npm run start'
+- you can the dev mode using 'npm run build-dev'
+- you can run prod mode using 'npm run build-prod'
+
+#### Resources
 
  - MDN 
+ - GeeksForGeeks

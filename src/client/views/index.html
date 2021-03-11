@@ -1,52 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-Us">
 
 <head>
     <meta charset="UTF-8">
     <title>Travel App</title>
-    <link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/style.css">
 </head>
 
 <body>
-    <div id="app">
+    <header>
         <h1 class="holder headline">
             Travel App
         </h1>
-        <main>
-            <section class="info-holder">
-                <div class="city-holder">
-                    <label for="city">Enter City Name here</label>
-                    <input type="text" id="city" placeholder="enter city name here">
+    </header>
+    <main>
+        <section class="info-holder">
+            <div class="city-holder">
+                <label for="city">Enter City Name here</label>
+                <input type="text" id="city" placeholder="enter city name here">
+            </div>
+            <div class="date-holder">
+                <label for="start">Departing : </label>
+                <input type="date" id="start" name="trip-start">
+                <label for="end" class="end">leaving: </label>
+                <input type="date" id="end" name="trip-end">
+                <div class="button">
+                    <button id="generate" type="submit"> Generate </button>
                 </div>
-                <div class="date-holder">
-                    <label for="start">Departing : </label>
-                    <input type="date" id="start" name="trip-start">
-                    <label for="end" class="end">leaving: </label>
-                    <input type="date" id="end" name="trip-end">
-                    <div class="button">
-                        <button id="generate" type="submit"> Generate </button>
-                    </div>
+            </div>
+        </section>
+        <section class="holder2 ">
+            <h2 class="title" id="title"></h2>
+            <div class="container">
+                <div id="picture">
                 </div>
-            </section>
-            <section class="holder2 ">
-                <h2 class="title" id="title"></h2>
-                <div class="container">
-                    <div id="picture">
-                        <img id="img">
-                    </div>
-                    <ul id="entryHolder">
-                        <li id="country"></li>
-                        <li id="cityname"></li>
-                        <li id="away"></li>
-                        <li id="weather"></li>
-                    </ul>
-
-                </div>
-            </section>
-    </div>
+                <ul id="entryHolder">
+                    <li id="country"></li>
+                    <li id="cityname"></li>
+                    <li id="away"></li>
+                    <li id="weather"></li>
+                </ul>
+            </div>
+        </section>
     </main>
-    </div>
-
     <footer>
         <p class="copy">&copy; Nahla Al-eikish - Udacity Travel App</p>
     </footer>
